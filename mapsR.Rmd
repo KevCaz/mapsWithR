@@ -7,7 +7,15 @@ linestretch: 1
 toc: true
 lof: true
 numbersections: true
-abstract: This document explains how to create and edit maps using the R language. It provides a basic understanding of the fundamental packages and functions needed to turn R into a Geographic Information System (GIS). Basics manipulations of spatial objects are too presented. However, it is beyond the range of this document to present exhaustively the potentialities R offers in term of spatial manipulation. Rather, I focus on explaining what are the essential classes of spatial objects and the methods that can be applied. I also strive to give as much information as I can to orient readers who wants to go further.
+abstract: "This manuals is dedicated to readers who wants to get started with
+map creation and edition in R. It provides a basic understanding of the
+fundamental packages and functions required to turn R into an efficient
+Geographic Information System (GIS). It also shows how to manipulated the
+spatial objects defined. It is however beyond the range of this document to
+present exhaustively the potentialities R offers in term of spatial
+manipulations and analyses. Rather, it focuses on explaining what are the
+essential classes of spatial objects and the methods that can be applied and
+pinpoints valuable resources for readers who want to go further."
 output:
     html_document:
         theme: flatly
@@ -35,29 +43,53 @@ render("path/mapsR.Rmd", "all")
 
 # Introduction
 
-Since the last decade, new software have emerged making the creation and edition of maps accessible to all. Scientists can now readily draw valuable spatial representations of their work without deep knowledge in mapping[^intr1]. Basic mapping skills should be a part of educational background of most of scientists as maps are often a proper way to expose facts and thereby  relevant representations that may ease the scientific debate. Among the tools available (see below) some Geographic Information System (GIS) are free, open-source such as [Quantum GIS](http://qgis.org/en/site/) and [GRASS GIS](http://grass.osgeo.org). Also, some high-level programming languages such as [Python](https://www.python.org) or [R](https://www.r-project.org) offer dedicated packages.
+Since the last decade, new softwares have emerged making the creation and
+edition of maps accessible to all. Scientists can now readily draw valuable
+spatial representations of their work without deep knowledge in mapping[^intr1].
+Basic mapping skills should be a part of educational background of most of
+scientists as maps are often a proper way to expose facts and thereby relevant
+representations that may ease the scientific debate. Among the tools available
+(see below) some Geographic Information System (GIS) are free, open-source such as
+[Quantum GIS](http://qgis.org/en/site/) and [GRASS GIS](http://grass.osgeo.org).
+Also, some high-level programming languages such as JavaScript, Python,
+or R offer dedicated packages. Few software are listed a couple of softwares:
+
+<!-- I should turn that into a table included possibilities / table  -->
 
 - [ArcGIS](http://www.arcgis.com/features/)
 - [CartoDB](http://cartodb.com)
+- [DIVA-GIS](http://www.diva-gis.org)
+- [GeoJson](http://geojson.io/#map=2/20.0/0.0)
 - [Google Map](https://www.google.fr/maps)
 - [Goole Earth](http://www.google.fr/intl/eng/earth/index.html)
-- [DIVA-GIS](http://www.diva-gis.org)
 - [GRASS](http://grass.osgeo.org)
 - [Leaflet](http://leafletjs.com)
-- [Mapnik](http://mapnik.org)
 - [Mapinfo](http://www.mapinfo.com)
+- [Mapnik](http://mapnik.org)
 - [PostGIS](http://www.postgis.org)
 - [Quantum GIS](http://qgis.org/en/site/)
 - [SAGA GIS](http://www.saga-gis.org/en/index.html)
 - [TileMill](https://www.mapbox.com/tilemill/)
 
 
-[^intr1]: If you can access to, I recommend the reading of the article: Zastrow, Mark. 2015. “Science on the Map.” Nature 519: 119–120.
+[^intr1]: I recommend the reading of the article:
+[Zastrow, Mark. 2015. “Science on the Map.” Nature 519: 119–120.](http://www.nature.com/news/data-visualization-science-on-the-map-1.17024)
 
 
-## Why do I use the R programming language for map creation and edition?
 
-Given the number of tools dedicated to spatial data representation and analysis, it is important to figure out the reasons why you should use R. According to me, the choice strongly relies upon (i) your ambition in term of mapping and (ii) your R skills. If you aim at creating a good-looking map without analysis and you are not familiar with R, I would discourage you to use R. But if you are familiar with R, you can quickly get a map as a R plot and so benefit from the plot system you  already know. Also, when you need tricky spatial analysis (*e.g* krigging), even if you are not familiar with R, you may benefit from this language and you may not encounter any difficulties to realize any kind of analysis and gather the plot. Ultimately yo will analysis and create your plot with R only.
+## Why use R for mapping?
+
+Given the number of tools dedicated to visualization and analyses of spatial
+data, it is important that users ask this question and take some time and balance
+pros ans cons. According to me, the choice strongly relies upon (i) your
+ambition in term of mapping and (ii) your R skills. If you aim at creating a
+good-looking map without analysis and you are not familiar with R, I would
+discourage you to use R. But if you are familiar with R, you can quickly get a
+map as a R plot and so benefit from the plot system you  already know. Also,
+when you need tricky spatial analysis (*e.g* krigging), even if you are not
+familiar with R, you may benefit from this language and you may not encounter
+any difficulties to realize any kind of analysis and gather the plot.
+Ultimately yo will analysis and create your plot with R only.
 
 
 ## What can be found in this document?
@@ -287,7 +319,7 @@ ptspd2@data
 The main benefit of using such classes is to manipulate efficiently spatial objects. There are a lot of functions already implemented and it is straightforward to automate basic operations. For instance, you can get all the distance between your points as follows:
 
 ```{r}
-spDists(ptspd2)
+# spDists(ptspd2)
 ```
 
 [^spp2]: Roughly speaking, objects in R are of two different kinds: S3 and S4. The first one is somehow more flexible while the latter is more formal. For more details, I recommend you to read [what Hadley Wickham wrote about it](http://adv-r.had.co.nz/OO-essentials.html).
