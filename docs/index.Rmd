@@ -18,7 +18,7 @@ output:
 
 ### 1- Workflow
 
-### 2- Efficiency
+### 2- Quite efficient
 
 ### 3- Interface
 
@@ -28,29 +28,38 @@ output:
 
 ## Workflow
 
-- R for everything
+### **R for everything** (*almost*)
+
+- import your data
+- format your data
+- analyze your data
+- visualize your data
+- export your data
+- create your own function/package
+
 
 
 ## Efficiency
 
-- topology operations   
-- conversion    
+- well-defined classes
+- many formats (+ convert different file)
+- topology operations     
+- statistical analyses
 - visualization   
 
 
 ## Interface
 
-- Geos
-- proj4
-- Gdal
-- Javascript (Leaflet)
+- C/C++: [Geos](http://trac.osgeo.org/geos), [proj4](http://proj4.org/), [Gdal](http://www.gdal.org/)
+- JavaScript: [Leaflet](https://rstudio.github.io/leaflet/)
+- otherGIS: [RQGIS](https://cran.r-project.org/web/packages/RQGIS/index.html), [rgrass7](https://cran.r-project.org/web/packages/rgrass7/index.html), [RgoogleMaps](https://cran.r-project.org/web/packages/RgoogleMaps/index.html)
+- access data: [osmdata](https://github.com/ropensci/osmdata)
 
 
 
 
 
 # Overview
-
 
 ## Turning R into a powerful GIS
 
@@ -73,18 +82,18 @@ output:
 
 ### 5- Analyses
 
-- 'spdep'
-- 'dismo'
+- `spdep`
+- `dismo`
 
 ### 4- Creating and editing maps
 
-- 'graphics'  
-- 'ggplot'  
-- 'interactive plot'  
+- `graphics`  
+- `ggplot`
+- `interactive plot`  
 
 ### 6- But
 
-- Georeferencing ...
+- Geo-referencing ...
 
 
 
@@ -260,7 +269,7 @@ diff <- gDifference(gBuffer(mapBEL0, width=0.5), gBuffer(mapBEL0, width=0.1))
 library(mapview)
 ```
 
-*use leaflet*
+**NB:** it uses the leaflet package.
 
 ## Quick examples
 
@@ -274,6 +283,11 @@ mapview(mysp, cex = 'var2')@map
 mapview(mapBEL1)@map
 ```
 
+## Own Example
+
+- https://insileco.github.io/Elections_fr-042017/
+
+- https://insileco.github.io/fr-departement-election/
 
 
 
@@ -281,9 +295,43 @@ mapview(mapBEL1)@map
 # Editing a map  
 
 
+## A very basic map -- Shapefile
+
+```{r basicmap}
+plot(mapBEL0)
+```
+
+## A very basic map -- Raster
+
+```{r basicmap2}
+class(tminW)
+```
+
+## A very basic map -- Raster
+
+```{r basicmap3}
+plot(tminW)
+```
+
+## Cutomize a map -- Shapefile
 
 
+```{r basicmap4, eval=F}
+plot(mapBEL0, border='grey15', col='#E6E6E6', lwd=1.6)
+plot(mapBEL1, lty=2, lwd=0.9, add=T)
+points(4.3513, 50.8471, pch=19, col="#27df9d")
+text(4.3513, 50.8471, text="Brussel", pos=3)
+```
 
+## Cutomize a map -- Shapefile
+
+
+```{r basicmap5, echo=F}
+plot(mapBEL0, border='grey15', col='#E6E6E6', lwd=1.6)
+plot(mapBEL1, lty=2, lwd=0.9, add=T)
+points(4.3513, 50.8471, pch=19, col="#27df9d")
+text(4.3513, 50.8471, label="Brussel", pos=3)
+```
 
 
 
@@ -293,26 +341,9 @@ mapview(mapBEL1)@map
 
 - Task view: https://cran.r-project.org/web/views/Spatial.html
 - blog: http://r-spatial.org/
-- http://rspatial.org/intr/index.html
-- https://freegisdata.rtwilson.com/
-
-
-## Other packages
-
+- A nice introduction: http://rspatial.org/intr/index.html
+- Get more data: https://freegisdata.rtwilson.com/
 - [sf](http://r-spatial.github.io/sf/)
-- maptools
-- [RgoogleMaps](https://cran.r-project.org/web/packages/RgoogleMaps/index.html)
-
-### Interface
-
-- [RQGIS](https://cran.r-project.org/web/packages/RQGIS/index.html)
-- [rgrass7](https://cran.r-project.org/web/packages/rgrass7/index.html)
-
-### Analyses
-
-- [spdep](https://cran.r-project.org/web/packages/spdep/index.html)
-- [dismo](https://cran.r-project.org/web/packages/dismo/index.html)
-- [sdm](https://cran.r-project.org/web/packages/sdm/index.html)
 
 
 <!-- ## cool
