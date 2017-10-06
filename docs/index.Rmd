@@ -283,7 +283,7 @@ mapview(mysp, cex = 'var2')@map
 mapview(mapBEL1)@map
 ```
 
-## Own Example
+## More
 
 - https://insileco.github.io/Elections_fr-042017/
 
