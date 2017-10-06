@@ -12,6 +12,8 @@ output:
 
 
 
+
+
 # Why?
 
 ## Why use R as a GIS?
@@ -22,7 +24,7 @@ output:
 
 ### 3- Interface
 
-<!-- 5 ans it has evolved at a very fast pace... -->
+<!-- 5 years it has evolved at a very fast pace... -->
 
 
 
@@ -238,6 +240,8 @@ writeOGR(mysp, dsn="./assets", layer="mypoints",
 
 ```{r rgdal4}
 mysp2 <- readOGR(dsn="assets/", layer="mypoints")
+## Roads find on http://www.diva-gis.org/Data
+canroads <- readOGR(dsn="assets/", layer="CAN_roads")
 ```
 
 *Note*: there are also functions to import/export raster in `raster`
@@ -282,6 +286,10 @@ mapview(mysp, cex = 'var2')@map
 ```{r mapview3}
 mapview(mapBEL1)@map
 ```
+
+
+
+
 
 ## More
 
@@ -334,16 +342,32 @@ text(4.3513, 50.8471, label="Brussel", pos=3)
 ```
 
 
+## Cutomize a map -- Shapefile of roads
+
+```{r mapview3b, echo=F}
+# mapview(canroads)@map
+plot(c(-82,-80), c(42,44), type='n', asp=1.5)
+plot(canroads, add=T)
+```
+
+
+
+
+
 
 # Resources
 
 ## Useful links
 
-- Task view: https://cran.r-project.org/web/views/Spatial.html
-- blog: http://r-spatial.org/
-- A nice introduction: http://rspatial.org/intr/index.html
-- Get more data: https://freegisdata.rtwilson.com/
+- task view: https://cran.r-project.org/web/views/Spatial.html
+- blog R-spatial: http://r-spatial.org/
+- a nice introduction: http://rspatial.org/intr/index.html
 - [sf](http://r-spatial.github.io/sf/)
+- [create shapefile on line](http://geojson.io/)
+- [free data at country level](http://www.diva-gis.org/gdata)
+- find more data with [this list](https://freegisdata.rtwilson.com/)
+
+
 
 
 <!-- ## cool
