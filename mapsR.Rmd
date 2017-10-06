@@ -466,7 +466,7 @@ The first example I choose is creating a *RasterLayer* from a matrix (others are
 ```{r}
 Ra1 <- raster(matrix(runif(360*180,0,10),ncol=360,nrow=180),
     crs=CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"),
-    xmn=-179.5, xmx=+179.5, ymn=-79.5, ymx=+79.5)
+    xmn=-179.5, xmx=+179.5, ymn=-79.5, y## Example:`raster`mx=+79.5)
 Ra1
 ```
 
@@ -798,7 +798,7 @@ It retrieves data from [WolrdClim](http://worldclim.org). Once this option is se
 tminW <- getData(name="worldclim", var="tmin", res=10, path="./outputs")
 ```
 
-Again, I look at the type of objet I got:
+Again, I look at the type of object I got:
 
 ```{r}
 class(tminW)

@@ -1,7 +1,7 @@
 ---
 title: "Mapping in R"
 date: "`r paste0(format(Sys.time(), '%d %B %Y'))`"
-author: Kevin Cazelles, McCann Lab
+author: Kevin Cazelles, post-doc, McCann Lab
 # lang: french
 output:
     ioslides_presentation:
@@ -16,9 +16,14 @@ output:
 
 ## Why use R as a GIS?
 
-1. Workflow
-2. Efficiency
-3. Interface
+### 1- Workflow
+
+### 2- Efficiency
+
+### 3- Interface
+
+<!-- 5 ans it has evolved at a very fast pace... -->
+
 
 
 ## Workflow
@@ -43,31 +48,45 @@ output:
 
 
 
+
 # Overview
 
 
-## Turning R into a GIS
+## Turning R into a powerful GIS
 
-### Define class
+### 1- Define classes
 
-- 'sp'
-- 'raster'
-- 'sf'
-
-### Topology operation
-
-- 'rgeos'
-
-### import / export
-
-- 'rgdal'
+- `sp`
+- `raster`
 
 
-## Creating and editing maps
+### 2- Topology operations
 
-- 'graphics'
-- 'ggplot'
--  
+- `rgeos`
+
+### 3- Import / export
+
+- `rgdal`
+
+
+## Turning R into a powerful GIS
+
+### 5- Analyses
+
+- 'spdep'
+- 'dismo'
+
+### 4- Creating and editing maps
+
+- 'graphics'  
+- 'ggplot'  
+- 'interactive plot'  
+
+### 6- But
+
+- Georeferencing ...
+
+
 
 
 # Package `sp`
@@ -85,15 +104,134 @@ SpatialLines                | list of lines + CRS
 SpatialLinesDataFrame       | list of lines + CRS + attribute table
 
 
+## Example: `SpatialPointsDataPoints`
 
+```{r simpoint, echo = F, results='asis'}
+library(knitr)
+library(magrittr)
+mydata <- data.frame(
+  long = -82+2*runif(20),
+  lat = 42+2*runif(20),
+  var1 = rnorm(20),
+  var2 = 10*runif(20)
+)
+kable(head(mydata))
+```
+
+## Example: `SpatialPointsDataFrame`
+
+```{r sppoint}
+library(sp)
+mysp <- SpatialPointsDataFrame(
+  coords = mydata[,1:2],
+  data = mydata[,3:4],
+  proj4string = CRS(
+    "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0"
+  )
+)
+```
+
+## Example: `SpatialPointsDataFrame`
+
+```{r sppoint2}
+class(mysp)
+isS4(mysp)
+slotNames(mysp)
+```
+
+## Example: `SpatialPointsDataFrame`
+
+```{r sppoint3}
+mysp@proj4string
+head(mysp@data)
+```
+
+## Change projection: `spTransform`
+
+```{r spTransform}
+(mysp2 <- spTransform(mysp, CRS=CRS("+proj=merc +ellps=GRS80")))
+```
 
 
 # Package `raster`
 
 
+## Classes
 
+### 1- SpatialGrid (package `sp`)
+
+### 2- SpatialGrid (package `sp`)
+
+### 3- RasterLayer (package `raster`)
+
+### 4- RasterStack (package `raster`)
+
+### 5- RasterBrick (package `raster`)
+
+
+## Example:`raster`
+
+```{r raster}
+library(raster)
+ras1 <- raster(matrix(runif(100*100,0,10),ncol=100,nrow=100),
+    crs=CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"),
+    xmn=-82, xmx=+80, ymn=+42, ymx=+44)
+```
+
+## Example:`raster`
+
+```{r raster2}
+ras1
+```
+
+## Retrieving free GIS data: `getData`
+
+```{r getDat1}
+head(getData("ISO3"))
+```
+
+## Example:`getData`
+
+```{r getDat2}
+## Country level:
+mapBEL0 <- getData(name="GADM", country="BEL", path="./assets", level=0)
+mapBEL1 <- getData(name="GADM", country="BEL", path="./assets", level=1)
+tminW <- getData(name="worldclim", var="tmin", res=10, path="./assets")
+mapBEL0
+```
 
 # Package `rgdal`
+
+## Drivers
+
+```{r rgdal1}
+library(rgdal)
+```
+
+1. **writeOGR** / **writeGDAL**: to write spatial objects
+2. **readOGR**/**readGDAL**: to read spatial files
+
+## Drivers
+
+```{r rgdal2}
+head(ogrDrivers())
+```
+
+## Export
+
+```{r rgdal3}
+writeOGR(mysp, dsn="./assets", layer="mypoints",
+    driver="ESRI Shapefile", overwrite_layer=TRUE)
+```
+
+
+## Import
+
+```{r rgdal4}
+mysp2 <- readOGR(dsn="assets/", layer="mypoints")
+```
+
+*Note*: there are also functions to import/export raster in `raster`
 
 
 
@@ -101,19 +239,59 @@ SpatialLinesDataFrame       | list of lines + CRS + attribute table
 
 # Package `rgeos`
 
+## Load the package
 
+```{r rgeos}
+library(rgeos)
+```
 
+## Load the package
+
+```{r rgeos2}
+buf <- gBuffer(mapBEL0, width=0.5)
+diff <- gDifference(gBuffer(mapBEL0, width=0.5), gBuffer(mapBEL0, width=0.1))
+```
 
 # Package `mapview`
 
+## Import package
+
+```{r mapview}
+library(mapview)
+```
+
+*use leaflet*
+
+## Quick examples
+
+```{r mapview2}
+mapview(mysp, cex = 'var2')@map
+```
+
+## Quick examples
+
+```{r mapview3}
+mapview(mapBEL1)@map
+```
 
 
 
 
-# Ressources
+
+# Editing a map  
+
+
+
+
+
+
+
+
+# Resources
 
 ## Useful links
 
+- Task view: https://cran.r-project.org/web/views/Spatial.html
 - blog: http://r-spatial.org/
 - http://rspatial.org/intr/index.html
 - https://freegisdata.rtwilson.com/
@@ -121,8 +299,9 @@ SpatialLinesDataFrame       | list of lines + CRS + attribute table
 
 ## Other packages
 
-- sf http://r-spatial.github.io/sf/
+- [sf](http://r-spatial.github.io/sf/)
 - maptools
+- [RgoogleMaps](https://cran.r-project.org/web/packages/RgoogleMaps/index.html)
 
 ### Interface
 
@@ -136,7 +315,7 @@ SpatialLinesDataFrame       | list of lines + CRS + attribute table
 - [sdm](https://cran.r-project.org/web/packages/sdm/index.html)
 
 
-## cool
+<!-- ## cool
 
 <div class="centered">
 This text is centered.
@@ -149,4 +328,4 @@ This text is centered.
   - Bullet 1
   - Bullet 2
   - Bullet 3
-</div>
+</div> -->
