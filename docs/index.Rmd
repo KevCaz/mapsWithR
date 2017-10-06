@@ -1,0 +1,152 @@
+---
+title: "Mapping in R"
+date: "`r paste0(format(Sys.time(), '%d %B %Y'))`"
+author: Kevin Cazelles, McCann Lab
+# lang: french
+output:
+    ioslides_presentation:
+        incremental: true
+        widescreen: true
+        #logo: ./img/logo.png
+---
+
+
+
+# Why?
+
+## Why use R as a GIS?
+
+1. Workflow
+2. Efficiency
+3. Interface
+
+
+## Workflow
+
+- R for everything
+
+
+## Efficiency
+
+- topology operations   
+- conversion    
+- visualization   
+
+
+## Interface
+
+- Geos
+- proj4
+- Gdal
+- Javascript (Leaflet)
+
+
+
+
+# Overview
+
+
+## Turning R into a GIS
+
+### Define class
+
+- 'sp'
+- 'raster'
+- 'sf'
+
+### Topology operation
+
+- 'rgeos'
+
+### import / export
+
+- 'rgdal'
+
+
+## Creating and editing maps
+
+- 'graphics'
+- 'ggplot'
+-  
+
+
+# Package `sp`
+
+## Classes
+
+Classes / Functions         | Contents
+--------------------------- | ---------------
+Points                      | list of points (set of coordinates)
+SpatialPoints               | list of points + CRS
+SpatialPointsDataPoints     | list of points + CRS + attribute table
+Line                        | a line (set of coordinates)
+Lines                       | list of lines
+SpatialLines                | list of lines + CRS
+SpatialLinesDataFrame       | list of lines + CRS + attribute table
+
+
+
+
+
+# Package `raster`
+
+
+
+
+# Package `rgdal`
+
+
+
+
+
+# Package `rgeos`
+
+
+
+
+# Package `mapview`
+
+
+
+
+
+# Ressources
+
+## Useful links
+
+- blog: http://r-spatial.org/
+- http://rspatial.org/intr/index.html
+- https://freegisdata.rtwilson.com/
+
+
+## Other packages
+
+- sf http://r-spatial.github.io/sf/
+- maptools
+
+### Interface
+
+- [RQGIS](https://cran.r-project.org/web/packages/RQGIS/index.html)
+- [rgrass7](https://cran.r-project.org/web/packages/rgrass7/index.html)
+
+### Analyses
+
+- [spdep](https://cran.r-project.org/web/packages/spdep/index.html)
+- [dismo](https://cran.r-project.org/web/packages/dismo/index.html)
+- [sdm](https://cran.r-project.org/web/packages/sdm/index.html)
+
+
+## cool
+
+<div class="centered">
+This text is centered.
+</div>
+
+## cool2
+
+<div class="columns-2">
+
+  - Bullet 1
+  - Bullet 2
+  - Bullet 3
+</div>

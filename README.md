@@ -29,6 +29,10 @@ The last compilation of the document has been made on August 24, 2015, using R 3
 All the material needed is downloaded using R command lines throughout the document.  
 
 
+# Resources
+
+http://rspatial.org/intr/index.html
+http://www.qgistutorials.com/en/docs/georeferencing_basics.html?highlight=geo%20reference
 
 # To do
 

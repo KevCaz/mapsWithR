@@ -1,6 +1,7 @@
 #
 *.pdf
 outputs
+mapsR_file
 
 # History files
 .Rhistory
