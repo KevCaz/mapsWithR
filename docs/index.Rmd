@@ -7,17 +7,10 @@ output:
   ioslides_presentation:
     incremental: true
     widescreen: true
-    #logo: ./img/logo.png
-    output:
-      ioslides_presentation:
-        incremental: true
-        widescreen: true
-        includes:
-          in_header: kcheader.html
-        #logo: ./img/logo.png
+    includes:
+      in_header: kcheader.html
+      #logo: ./img/logo.png
 ---
-
-
 
 
 
@@ -331,7 +324,7 @@ class(tminW)
 plot(tminW)
 ```
 
-## Cutomize a map -- Shapefile
+## Customize a map -- Shapefile
 
 
 ```{r basicmap4, eval=F}
@@ -341,7 +334,7 @@ points(4.3513, 50.8471, pch=19, col="#27df9d")
 text(4.3513, 50.8471, text="Brussel", pos=3)
 ```
 
-## Cutomize a map -- Shapefile
+## Customize a map -- Shapefile
 
 
 ```{r basicmap5, echo=F}
@@ -352,7 +345,7 @@ text(4.3513, 50.8471, label="Brussel", pos=3)
 ```
 
 
-## Cutomize a map -- Shapefile of roads
+## Customize a map -- Shapefile of roads
 
 ```{r mapview3b, echo=F}
 # mapview(canroads)@map
@@ -365,12 +358,13 @@ plot(canroads, add=T)
 
 
 
-# Examples
+
+# Part 2 -- Showcases
 
 
-## Data frame
+## Data frame with Ontario's lakes
 
-- this `.csv` is avaible on line at XXXX
+- the `.csv` file below is available in the [<i class="fa fa-github" aria-hidden="true"></i>](https://github.com/KevCaz/mapsWithR) repository
 
 ```{r lake, message=F}
 lakedf <- read.csv('assets/lakeOnt.csv')
@@ -378,7 +372,7 @@ head(lakedf)
 ```
 
 
-## SpatialPointDataFrame
+## Make it a `SpatialPointDataFrame`
 
 ```{r lake2, message=F}
 library(sp)
@@ -392,7 +386,7 @@ lakesp <- SpatialPointsDataFrame(
 ```
 
 
-## SpatialPointDataFrame
+## Your SpatialPointDataFrame
 
 
 ```{r lake3, message=F}
@@ -400,21 +394,20 @@ lakesp
 ```
 
 
-## Altitude Canada
+## Retrieve altitude for Canada
 
 ```{r canalt, message=F}
 altCAN <- getData(name="alt", country="CAN", path="./assets/")
 altCAN
 ```
 
-## Altitude Canada
+## Retrieve altitude for Canada
 
 ```{r canalt2, echo=F, message=F, warning=F}
 mapview(altCAN)
 ```
 
-
-## Canada -- provinces
+## Retrieve provinces' boundaries
 
 ```{r mapbound}
 bouCAN <- getData(country='CAN', level=1, path="./assets/")
@@ -422,7 +415,7 @@ bouCAN
 ```
 
 
-## Canada -- provinces
+## Retrieve provinces' boundaries
 
 ```{r mapbound2}
 bouCAN@data[,1:8]
@@ -444,7 +437,14 @@ plot(bouCAN[11,])
 
 ## Canada -- Ontario
 
-```{r mapont3, echo=F, warning=F}
+```{r mapont3, eval=F, warning=F}
+plot(crop(altCAN, bouCAN[11,]@bbox))
+par(mar=c(0,0,0,0))
+```
+
+## Canada -- Ontario
+
+```{r mapont3b, echo=F, warning=F}
 plot(crop(altCAN, bouCAN[11,]@bbox))
 par(mar=c(0,0,0,0))
 ```
@@ -481,6 +481,7 @@ plot(altONT)
 plot(lakesp, add=T)
 ```
 
+
 <!--
 par(mar=c(0,0,0,0))
 plot(altONT)
@@ -497,7 +498,7 @@ plot(lakesp[which(lakesp%over%south==1),], add=T)
 lakesp$North[which(lakesp%over%south==1)] = 'S'
 ------------------------
 plot(altONT)
-points(lakesp, pch=lakesp$North, cex=0.8)
+points(lakesp, pch=lakesp@data$North, cex=0.8)
 ------------------------
 mKrig
 packages fields
