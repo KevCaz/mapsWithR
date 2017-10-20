@@ -368,6 +368,38 @@ plot(canroads, add=T)
 # Examples
 
 
+## Data frame
+
+- this `.csv` is avaible on line at XXXX
+
+```{r lake, message=F}
+lakedf <- read.csv('assets/lakeOnt.csv')
+head(lakedf)
+```
+
+
+## SpatialPointDataFrame
+
+```{r lake2, message=F}
+library(sp)
+lakesp <- SpatialPointsDataFrame(
+  coords = lakedf[,3:4],
+  data = lakedf[,c(1,4)],
+  proj4string = CRS(
+    "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0"
+  )
+)
+```
+
+
+## SpatialPointDataFrame
+
+
+```{r lake3, message=F}
+lakesp
+```
+
+
 ## Altitude Canada
 
 ```{r canalt, message=F}
@@ -392,36 +424,84 @@ bouCAN
 
 ## Canada -- provinces
 
-```{r mapbound2, echo=F}
+```{r mapbound2}
 bouCAN@data[,1:8]
 ```
 
 
-## Canada -- provinces
+## Canada -- Ontario
 
-```{r mapbound3, echo=F, warning=F}
+```{r mapont, warning=F}
+bouCAN[11,]
+```
+
+## Canada -- Ontario
+
+```{r mapont2, echo=F, warning=F}
 par(mar=c(0,0,0,0))
 plot(bouCAN[11,])
 ```
 
+## Canada -- Ontario
 
-## Canada -- provinces
-
-```{r mapbound4, echo=F, warning=F}
-altONT <- rasterize(bouCAN[11,], altCAN, mask=TRUE)
-mapview(altONT)
+```{r mapont3, echo=F, warning=F}
+plot(crop(altCAN, bouCAN[11,]@bbox))
+par(mar=c(0,0,0,0))
 ```
 
-## Canada -- provinces
+
+## Canada -- Ontario elevation
+
+```{r elvont, eval=F, warning=F}
+altONT <- rasterize(bouCAN[11,], crop(altCAN, bouCAN[11,]@bbox), mask=TRUE)
+mapview(altONT)+mapview(lakesp)
+```
 
 
+## Canada -- Ontario elevation
 
+```{r elvont2, echo=F, warning=F}
+altONT <- rasterize(bouCAN[11,], crop(altCAN, bouCAN[11,]@bbox), mask=TRUE)
+mapview(altONT)+mapview(lakesp)
+```
 
+## Canada -- Ontario elevation
 
+```{r elvont3, eval=F, warning=F}
+par(mar=c(0,0,0,0))
+plot(altONT)
+plot(lakesp, add=T)
+```
 
+## Canada -- Ontario elevation
 
+```{r elvont4, echo=F, warning=F}
+par(mar=c(0,0,0,0))
+plot(altONT)
+plot(lakesp, add=T)
+```
 
-
+<!--
+par(mar=c(0,0,0,0))
+plot(altONT)
+plot(lakesp, add=T)
+--------------------
+south <- drawPoly()
+south@proj4string <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0")
+-----------------------
+lakesp$North = 'N'
+-----------------------
+plot(altONT)
+plot(lakesp[which(lakesp%over%south==1),], add=T)
+------------------------
+lakesp$North[which(lakesp%over%south==1)] = 'S'
+------------------------
+plot(altONT)
+points(lakesp, pch=lakesp$North, cex=0.8)
+------------------------
+mKrig
+packages fields
+-->
 
 
 
