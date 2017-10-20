@@ -1,14 +1,24 @@
 ---
 title: "Mapping in R"
 date: "`r paste0(format(Sys.time(), '%d %B %Y'))`"
-author: Kevin Cazelles, post-doc, McCann Lab
+author: 'Kevin Cazelles, post-doc, McCann Lab, [<i class="fa fa-github" aria-hidden="true"></i>](https://github.com/KevCaz/mapsWithR)'
 # lang: french
 output:
-    ioslides_presentation:
+  ioslides_presentation:
+    incremental: true
+    widescreen: true
+    #logo: ./img/logo.png
+    output:
+      ioslides_presentation:
         incremental: true
         widescreen: true
+        includes:
+          in_header: kcheader.html
         #logo: ./img/logo.png
 ---
+
+
+
 
 
 
@@ -349,6 +359,66 @@ text(4.3513, 50.8471, label="Brussel", pos=3)
 plot(c(-82,-80), c(42,44), type='n', asp=1.5)
 plot(canroads, add=T)
 ```
+
+
+
+
+
+
+# Examples
+
+
+## Altitude Canada
+
+```{r canalt, message=F}
+altCAN <- getData(name="alt", country="CAN", path="./assets/")
+altCAN
+```
+
+## Altitude Canada
+
+```{r canalt2, echo=F, message=F, warning=F}
+mapview(altCAN)
+```
+
+
+## Canada -- provinces
+
+```{r mapbound}
+bouCAN <- getData(country='CAN', level=1, path="./assets/")
+bouCAN
+```
+
+
+## Canada -- provinces
+
+```{r mapbound2, echo=F}
+bouCAN@data[,1:8]
+```
+
+
+## Canada -- provinces
+
+```{r mapbound3, echo=F, warning=F}
+par(mar=c(0,0,0,0))
+plot(bouCAN[11,])
+```
+
+
+## Canada -- provinces
+
+```{r mapbound4, echo=F, warning=F}
+altONT <- rasterize(bouCAN[11,], altCAN, mask=TRUE)
+mapview(altONT)
+```
+
+
+
+
+
+
+
+
 
 
 

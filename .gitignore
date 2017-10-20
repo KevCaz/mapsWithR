@@ -1,3 +1,10 @@
+# large files
+docs/assets/wc10/
+*.gri
+*.grd
+*.vrt
+
+
 #
 *.pdf
 outputs
