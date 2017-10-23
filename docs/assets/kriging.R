@@ -16,7 +16,7 @@ coord <- as.matrix(data.frame(
 ))
 val <- rnorm(40)
 val[val<0] = 0
-##--- Do the krigging
+##--- Do the kriging
 modk1 <- Krig(x = coord, Y = val, lambda = .5)
 modk2 <- Krig(x = coord, Y = val, lambda = 5)
 ##--- quick plot
