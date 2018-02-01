@@ -7,7 +7,7 @@ A practical guide to get starting with mapping in R.
 install.packages("rmarkdown")
 ```
 
-To get the pdf:
+Once this repository is closed, To get the pdf:
 
 ```r
 rmarkdown::render("pathto/MapswithR/mapsR.Rmd", "pdf_document")
@@ -27,6 +27,7 @@ rmarkdown::render("pathto/MapswithR/mapsR.Rmd", "all")
 
 The last compilation of the document has been made on August 24, 2015, using R 3.2.2.
 All the material needed is downloaded using R command lines throughout the document.  
+
 
 
 # Resources

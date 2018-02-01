@@ -15,17 +15,27 @@ output:
 
 
 
-
-
 # Why?
 
-## Why use R as a GIS?
 
-### 1- Workflow
+## Mapping in Ecology?
 
-### 2- Quite efficient
+1. show where your plots are
 
-### 3- Interface
+2. show how variables are distributed spatially
+
+3. spatial analyses
+
+4. Many, many tools [<i class="fa fa-external-link" aria-hidden="true"></i>](http://www.nature.com/news/data-visualization-science-on-the-map-1.17024)
+
+
+## R as a GIS?
+
+1. Workflow
+
+2. Quite efficient
+
+3. Interface
 
 <!-- 5 years it has evolved at a very fast pace... -->
 
@@ -35,30 +45,30 @@ output:
 
 ### **R for everything** (*almost*)
 
-- import your data
-- format your data
-- analyze your data
-- visualize your data
-- export your data
-- create your own function/package
+1. import your data
+2. format your data
+3. analyze your data
+4. visualize your data
+5. export your data
+6. create your own functions/packages
 
 
 
 ## Efficiency
 
-- well-defined classes
-- many formats (+ convert different file)
-- topology operations     
-- statistical analyses
-- visualization   
+1. well-defined classes  
+2. many formats (+ convert different file)  
+3. operations on geometries  
+4. statistical analyses  
+5. visualization  
 
 
 ## Interface
 
-- C/C++: [Geos](http://trac.osgeo.org/geos), [proj4](http://proj4.org/), [Gdal](http://www.gdal.org/)
-- JavaScript: [Leaflet](https://rstudio.github.io/leaflet/)
-- otherGIS: [RQGIS](https://cran.r-project.org/web/packages/RQGIS/index.html), [rgrass7](https://cran.r-project.org/web/packages/rgrass7/index.html), [RgoogleMaps](https://cran.r-project.org/web/packages/RgoogleMaps/index.html)
-- access data: [osmdata](https://github.com/ropensci/osmdata)
+1. C/C++: [Geos](http://trac.osgeo.org/geos), [proj4](http://proj4.org/), [Gdal](http://www.gdal.org/)
+2. JavaScript: [Leaflet](https://rstudio.github.io/leaflet/)
+3. otherGIS: [RQGIS](https://cran.r-project.org/web/packages/RQGIS/index.html), [rgrass7](https://cran.r-project.org/web/packages/rgrass7/index.html), [RgoogleMaps](https://cran.r-project.org/web/packages/RgoogleMaps/index.html)
+4. retrieve data: [osmdata](https://github.com/ropensci/osmdata)
 
 
 
@@ -72,33 +82,41 @@ output:
 
 - `sp`
 - `raster`
+- `sf`
 
 
 ### 2- Topology operations
 
 - `rgeos`
+- `sf`
 
 ### 3- Import / export
 
 - `rgdal`
+- `sf`
 
 
 ## Turning R into a powerful GIS
 
-### 5- Analyses
+### 4- Analyses
 
 - `spdep`
 - `dismo`
 
-### 4- Creating and editing maps
+### 5- Creating and editing maps
 
-- `graphics`  
+- `graphics`
 - `ggplot`
-- `interactive plot`  
+- `interactive plot / web-based plot`
+- [a blog post about this](https://insileco.github.io/2015/12/04/list-of-r-packages-to-create-and-edit-plots/)
+
+
+## Turning R into a powerful GIS
 
 ### 6- But
 
-- Geo-referencing ...
+- Geo-referencing  [<i class="fa fa-external-link" aria-hidden="true"></i>](http://robertmyles.github.io/2016/08/13/geo-reference-an-image-in-r/)
+- Visualizing large spatial objects
 
 
 
@@ -172,9 +190,7 @@ head(mysp@data)
 
 ## Classes
 
-### 1- SpatialGrid (package `sp`)
-
-### 2- SpatialGrid (package `sp`)
+### 0- SpatialGrid / SpatialPixel (package `sp`)
 
 ### 3- RasterLayer (package `raster`)
 
@@ -303,7 +319,7 @@ mapview(mapBEL1)@map
 
 
 
-# Editing a map  
+# Editing a map
 
 
 ## A very basic map -- Shapefile
@@ -354,9 +370,38 @@ plot(canroads, add=T)
 ```
 
 
+# package `sf`
+
+## Simple features?
+
+> Simple features or simple feature access refers to a formal standard
+(ISO 19125-1:2004) that describes how objects in the real world can be
+represented in computers, with emphasis on the spatial geometry of these objects
+
+https://cran.r-project.org/web/packages/sf/vignettes/sf1.html
 
 
+## Importing spatial object
 
+
+## Doing simple operations
+
+## Exporting
+
+## Examples
+
+
+# Let's practice
+
+## Installation
+
+### 1- Have a look at https://github.com/r-spatial/sf
+
+### 2- Install R packages
+
+```R
+install.packages(c("sf", "sp", "rgeos", "rgdal", "raster", "mapview"))
+```
 
 
 # Part 2 -- Showcases
@@ -509,17 +554,25 @@ packages fields
 
 # Resources
 
-## Useful links
+## Useful links to use R as a GIS
 
-- task view: https://cran.r-project.org/web/views/Spatial.html
-- blog R-spatial: http://r-spatial.org/
-- a nice introduction: http://rspatial.org/intr/index.html
-- [sf](http://r-spatial.github.io/sf/)
-- [create shapefile on line](http://geojson.io/)
+- task view: https://cran.r-project.org/web/views/Spatial.html; also following
+to this `https://cran.r-project.org/web/views/`
+
+```R
+install.packages("ctv")
+install.views("Spatial")
+```
+
+- [Document par Nicolas Casajus](https://qcbs.ca/wiki/_media/gisonr.pdf)
+- http://r-spatial.org/
+
+## Useful links to get data
+
 - [free data at country level](http://www.diva-gis.org/gdata)
-- find more data with [this list](https://freegisdata.rtwilson.com/)
-
-
+- [Quebec free data](http://mffp.gouv.qc.ca/le-ministere/acces-aux-donnees-gratuites/)
+- [find more spatial data](https://freegisdata.rtwilson.com/)
+- [create shapefile on line](http://geojson.io/)
 
 
 <!-- ## cool
