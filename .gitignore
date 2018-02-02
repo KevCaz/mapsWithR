@@ -1,6 +1,7 @@
 # kc added
 docs/assets/wc10/
 *.xlsx
+*.csv
 *.gri
 *.grd
 *.vrt

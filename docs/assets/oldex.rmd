@@ -1,0 +1,148 @@
+
+#### Autre example
+
+
+
+
+
+## Data frame with Ontario's lakes
+
+- the `.csv` file below is available in the [<i class="fa fa-github" aria-hidden="true"></i>](https://github.com/KevCaz/mapsWithR) repository
+
+```{r lake, message=F}
+lakedf <- read.csv('assets/lakeOnt.csv')
+head(lakedf)
+```
+
+
+## Turn it into `SpatialPointDataFrame`
+
+```{r lake2, message=F}
+library(sp)
+lakesp <- SpatialPointsDataFrame(
+  coords = lakedf[,3:4],
+  data = lakedf[,c(1,4)],
+  proj4string = CRS(
+    "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0"
+  )
+)
+```
+
+
+## Your SpatialPointDataFrame
+
+
+```{r lake3, message=F}
+lakesp
+```
+
+
+## Retrieve altitude for Canada
+
+```{r canalt, message=F}
+altCAN <- getData(name="alt", country="CAN", path="./assets/")
+altCAN
+```
+
+## Retrieve altitude for Canada
+
+```{r canalt2, echo=F, message=F, warning=F}
+mapview(altCAN)
+```
+
+## Retrieve provinces' boundaries
+
+```{r mapbound}
+bouCAN <- getData(country='CAN', level=1, path="./assets/")
+bouCAN
+```
+
+
+## Retrieve provinces' boundaries
+
+```{r mapbound2}
+bouCAN@data[,1:8]
+```
+
+
+## Canada -- Ontario
+
+```{r mapont, warning=F}
+bouCAN[11,]
+```
+
+## Canada -- Ontario
+
+```{r mapont2, echo=F, warning=F}
+par(mar=c(0,0,0,0))
+plot(bouCAN[11,])
+```
+
+## Canada -- Ontario
+
+```{r mapont3, eval=F, warning=F}
+plot(crop(altCAN, bouCAN[11,]@bbox))
+par(mar=c(0,0,0,0))
+```
+
+## Canada -- Ontario
+
+```{r mapont3b, echo=F, warning=F}
+plot(crop(altCAN, bouCAN[11,]@bbox))
+par(mar=c(0,0,0,0))
+```
+
+
+## Canada -- Ontario elevation
+
+```{r elvont, eval=F, warning=F}
+altONT <- rasterize(bouCAN[11,], crop(altCAN, bouCAN[11,]@bbox), mask=TRUE)
+mapview(altONT)+mapview(lakesp)
+```
+
+
+## Canada -- Ontario elevation
+
+```{r elvont2, echo=F, warning=F}
+altONT <- rasterize(bouCAN[11,], crop(altCAN, bouCAN[11,]@bbox), mask=TRUE)
+mapview(altONT)+mapview(lakesp)
+```
+
+## Canada -- Ontario elevation
+
+```{r elvont3, eval=F, warning=F}
+par(mar=c(0,0,0,0))
+plot(altONT)
+plot(lakesp, add=T)
+```
+
+## Canada -- Ontario elevation
+
+```{r elvont4, echo=F, warning=F}
+par(mar=c(0,0,0,0))
+plot(altONT)
+plot(lakesp, add=T)
+```
+
+
+<!--
+par(mar=c(0,0,0,0))
+plot(altONT)
+plot(lakesp, add=T)
+--------------------
+south <- drawPoly()
+south@proj4string <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0")
+-----------------------
+lakesp$North = 'N'
+-----------------------
+plot(altONT)
+plot(lakesp[which(lakesp%over%south==1),], add=T)
+------------------------
+lakesp$North[which(lakesp%over%south==1)] = 'S'
+------------------------
+plot(altONT)
+points(lakesp, pch=lakesp@data$North, cex=0.8)
+------------------------
+mKrig
+packages fields
+-->

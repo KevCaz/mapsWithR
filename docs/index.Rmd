@@ -26,7 +26,7 @@ output:
 
 3. spatial analyses
 
-4. Many, many tools [<i class="fa fa-external-link" aria-hidden="true"></i>](http://www.nature.com/news/data-visualization-science-on-the-map-1.17024)
+4. many, many tools [<i class="fa fa-external-link" aria-hidden="true"></i>](http://www.nature.com/news/data-visualization-science-on-the-map-1.17024)
 
 
 ## R as a GIS?
@@ -74,7 +74,7 @@ output:
 
 
 
-# Overview
+# How? An overview
 
 ## Turning R into a powerful GIS
 
@@ -98,9 +98,11 @@ output:
 
 ## Turning R into a powerful GIS
 
-### 4- Analyses
+### 4- Analyses (few examples)
 
 - `spdep`
+- `spatial`
+- `gstat`
 - `dismo`
 
 ### 5- Creating and editing maps
@@ -113,10 +115,11 @@ output:
 
 ## Turning R into a powerful GIS
 
-### 6- But
+### 6- But...
 
 - Geo-referencing  [<i class="fa fa-external-link" aria-hidden="true"></i>](http://robertmyles.github.io/2016/08/13/geo-reference-an-image-in-r/)
 - Visualizing large spatial objects
+- Watershed analysis
 
 
 
@@ -199,7 +202,7 @@ head(mysp@data)
 ### 5- RasterBrick (package `raster`)
 
 
-## Example:`raster`
+## Example: `raster`
 
 ```{r raster}
 library(raster)
@@ -208,7 +211,7 @@ ras1 <- raster(matrix(runif(100*100,0,10),ncol=100,nrow=100),
     xmn=-82, xmx=+80, ymn=+42, ymx=+44)
 ```
 
-## Example:`raster`
+## Example: `raster`
 
 ```{r raster2}
 ras1
@@ -220,7 +223,7 @@ ras1
 head(getData("ISO3"))
 ```
 
-## Example:`getData`
+## Example: `getData`
 
 ```{r getDat2}
 ## Country level:
@@ -263,7 +266,7 @@ mysp2 <- readOGR(dsn="assets/", layer="mypoints")
 canroads <- readOGR(dsn="assets/", layer="CAN_roads")
 ```
 
-*Note*: there are also functions to import/export raster in `raster`
+*NB*: there are function to import/export raster in `raster`
 
 
 
@@ -284,6 +287,74 @@ buf <- gBuffer(mapBEL0, width=0.5)
 diff <- gDifference(gBuffer(mapBEL0, width=0.5), gBuffer(mapBEL0, width=0.1))
 ```
 
+
+# package `sf`
+
+## Simple features?
+
+> The package `sf`  [...] aims at succeeding `sp` in the long term.
+
+> Simple features or simple feature access refers to a formal standard
+(ISO 19125-1:2004) that describes how objects in the real world can be
+represented in computers, with emphasis on the spatial geometry of these objects
+
+https://cran.r-project.org/web/packages/sf/vignettes/sf1.html
+
+
+## Importing spatial object
+
+```{r sf1}
+library(sf)
+mysf <- st_read(dsn="assets/mypoints.shp")
+```
+
+
+## Importing spatial object
+
+```{r sf2}
+print(mysf)
+```
+
+## Importing spatial object
+
+```{r sf3}
+mysf2 <- st_as_sf(mysp)
+```
+
+## Simple manipulations
+
+```{r sf4, echo = FALSE}
+# http://spatialreference.org/
+mysf2 <- st_transform(mysf, 3857)
+```
+
+## Simple manipulations
+
+```{r sf5}
+plot(mysf[1])
+```
+
+##
+
+```r
+plot(st_buffer(mysf[1], 0.1))
+```
+
+## Simple manipulations
+
+```{r sf6, echo = FALSE}
+plot(st_buffer(mysf[1], 0.1))
+```
+
+### `sf` or `sp`?
+
+- https://insileco.github.io/2017/09/12/efficiency-of-spatial-intersects-in-r/
+
+- https://github.com/r-spatial/sf
+
+
+
+
 # Package `mapview`
 
 ## Import package
@@ -292,9 +363,10 @@ diff <- gDifference(gBuffer(mapBEL0, width=0.5), gBuffer(mapBEL0, width=0.1))
 library(mapview)
 ```
 
-**NB:** it uses the leaflet package.
+**NB:** it uses the `leaflet` package which uses `sp`.
 
-## Quick examples
+
+## 1 line of code examples
 
 ```{r mapview2}
 mapview(mysp, cex = 'var2')@map
@@ -306,11 +378,7 @@ mapview(mysp, cex = 'var2')@map
 mapview(mapBEL1)@map
 ```
 
-
-
-
-
-## More
+## More (using `leaflet`)
 
 - https://insileco.github.io/Elections_fr-042017/
 
@@ -342,7 +410,6 @@ plot(tminW)
 
 ## Customize a map -- Shapefile
 
-
 ```{r basicmap4, eval=F}
 plot(mapBEL0, border='grey15', col='#E6E6E6', lwd=1.6)
 plot(mapBEL1, lty=2, lwd=0.9, add=T)
@@ -352,204 +419,12 @@ text(4.3513, 50.8471, text="Brussel", pos=3)
 
 ## Customize a map -- Shapefile
 
-
 ```{r basicmap5, echo=F}
 plot(mapBEL0, border='grey15', col='#E6E6E6', lwd=1.6)
 plot(mapBEL1, lty=2, lwd=0.9, add=T)
 points(4.3513, 50.8471, pch=19, col="#27df9d")
 text(4.3513, 50.8471, label="Brussel", pos=3)
 ```
-
-
-## Customize a map -- Shapefile of roads
-
-```{r mapview3b, echo=F}
-# mapview(canroads)@map
-plot(c(-82,-80), c(42,44), type='n', asp=1.5)
-plot(canroads, add=T)
-```
-
-
-# package `sf`
-
-## Simple features?
-
-> Simple features or simple feature access refers to a formal standard
-(ISO 19125-1:2004) that describes how objects in the real world can be
-represented in computers, with emphasis on the spatial geometry of these objects
-
-https://cran.r-project.org/web/packages/sf/vignettes/sf1.html
-
-
-## Importing spatial object
-
-
-## Doing simple operations
-
-## Exporting
-
-## Examples
-
-
-# Let's practice
-
-## Installation
-
-### 1- Have a look at https://github.com/r-spatial/sf
-
-### 2- Install R packages
-
-```R
-install.packages(c("sf", "sp", "rgeos", "rgdal", "raster", "mapview"))
-```
-
-
-# Part 2 -- Showcases
-
-
-## Data frame with Ontario's lakes
-
-- the `.csv` file below is available in the [<i class="fa fa-github" aria-hidden="true"></i>](https://github.com/KevCaz/mapsWithR) repository
-
-```{r lake, message=F}
-lakedf <- read.csv('assets/lakeOnt.csv')
-head(lakedf)
-```
-
-
-## Make it a `SpatialPointDataFrame`
-
-```{r lake2, message=F}
-library(sp)
-lakesp <- SpatialPointsDataFrame(
-  coords = lakedf[,3:4],
-  data = lakedf[,c(1,4)],
-  proj4string = CRS(
-    "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0"
-  )
-)
-```
-
-
-## Your SpatialPointDataFrame
-
-
-```{r lake3, message=F}
-lakesp
-```
-
-
-## Retrieve altitude for Canada
-
-```{r canalt, message=F}
-altCAN <- getData(name="alt", country="CAN", path="./assets/")
-altCAN
-```
-
-## Retrieve altitude for Canada
-
-```{r canalt2, echo=F, message=F, warning=F}
-mapview(altCAN)
-```
-
-## Retrieve provinces' boundaries
-
-```{r mapbound}
-bouCAN <- getData(country='CAN', level=1, path="./assets/")
-bouCAN
-```
-
-
-## Retrieve provinces' boundaries
-
-```{r mapbound2}
-bouCAN@data[,1:8]
-```
-
-
-## Canada -- Ontario
-
-```{r mapont, warning=F}
-bouCAN[11,]
-```
-
-## Canada -- Ontario
-
-```{r mapont2, echo=F, warning=F}
-par(mar=c(0,0,0,0))
-plot(bouCAN[11,])
-```
-
-## Canada -- Ontario
-
-```{r mapont3, eval=F, warning=F}
-plot(crop(altCAN, bouCAN[11,]@bbox))
-par(mar=c(0,0,0,0))
-```
-
-## Canada -- Ontario
-
-```{r mapont3b, echo=F, warning=F}
-plot(crop(altCAN, bouCAN[11,]@bbox))
-par(mar=c(0,0,0,0))
-```
-
-
-## Canada -- Ontario elevation
-
-```{r elvont, eval=F, warning=F}
-altONT <- rasterize(bouCAN[11,], crop(altCAN, bouCAN[11,]@bbox), mask=TRUE)
-mapview(altONT)+mapview(lakesp)
-```
-
-
-## Canada -- Ontario elevation
-
-```{r elvont2, echo=F, warning=F}
-altONT <- rasterize(bouCAN[11,], crop(altCAN, bouCAN[11,]@bbox), mask=TRUE)
-mapview(altONT)+mapview(lakesp)
-```
-
-## Canada -- Ontario elevation
-
-```{r elvont3, eval=F, warning=F}
-par(mar=c(0,0,0,0))
-plot(altONT)
-plot(lakesp, add=T)
-```
-
-## Canada -- Ontario elevation
-
-```{r elvont4, echo=F, warning=F}
-par(mar=c(0,0,0,0))
-plot(altONT)
-plot(lakesp, add=T)
-```
-
-
-<!--
-par(mar=c(0,0,0,0))
-plot(altONT)
-plot(lakesp, add=T)
---------------------
-south <- drawPoly()
-south@proj4string <- CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0")
------------------------
-lakesp$North = 'N'
------------------------
-plot(altONT)
-plot(lakesp[which(lakesp%over%south==1),], add=T)
-------------------------
-lakesp$North[which(lakesp%over%south==1)] = 'S'
-------------------------
-plot(altONT)
-points(lakesp, pch=lakesp@data$North, cex=0.8)
-------------------------
-mKrig
-packages fields
--->
-
-
 
 
 # Resources
@@ -566,6 +441,7 @@ install.views("Spatial")
 
 - [Document par Nicolas Casajus](https://qcbs.ca/wiki/_media/gisonr.pdf)
 - http://r-spatial.org/
+- [Tutorial on datacamp](https://www.datacamp.com/courses/spatial-analysis-in-r-with-sf-and-raster)
 
 ## Useful links to get data
 
@@ -573,10 +449,134 @@ install.views("Spatial")
 - [Quebec free data](http://mffp.gouv.qc.ca/le-ministere/acces-aux-donnees-gratuites/)
 - [find more spatial data](https://freegisdata.rtwilson.com/)
 - [create shapefile on line](http://geojson.io/)
+- EPSG: [link1](http://spatialreference.org/); [link2](http://epsg.io/)
 
 
-<!-- ## cool
 
+
+
+
+
+
+
+
+
+
+
+# Let's practice
+
+## Installation
+
+### 1- Have a look at https://github.com/r-spatial/sf
+
+### 2- Install R packages
+
+```R
+install.packages(c("sf", "sp", "rgeos", "rgdal", "raster", "mapview"))
+```
+
+## Alexis's data
+
+```{r import, echo = F}
+knitr::read_chunk('assets/alexis.R')
+```
+
+```{r}
+<<read_data>>
+```
+
+##
+
+```{r}
+<<make_sp>>
+```
+
+##
+
+```{r}
+<<plot_1>>
+```
+
+##
+
+```{r}
+<<plot_2>>
+```
+
+##
+
+```{r}
+<<get_data>>
+```
+
+##
+
+```{r}
+<<plot_3>>
+```
+
+##
+
+```{r}
+<<over>>
+```
+
+##
+
+```{r}
+<<region>>
+```
+
+##
+
+```{r}
+<<plot_3b>>
+```
+
+##
+
+```{r}
+<<ra_elv>>
+```
+
+##
+
+```{r}
+<<plot_4>>
+```
+
+
+##
+
+```{r}
+<<buffer>>
+```
+
+##
+
+```{r}
+<<plot_5>>
+```
+
+##
+
+```{r}
+<<new_data>>
+```
+
+##
+
+```{r, eval=F}
+<<plot_6>>
+```
+
+##
+
+```{r, echo=F, fig.height = 6, fig.width =4}
+<<plot_6>>
+```
+
+<!--
 <div class="centered">
 This text is centered.
 </div>
