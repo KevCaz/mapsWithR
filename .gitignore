@@ -1,7 +1,7 @@
 # kc added
 docs/assets/wc10/
 *.xlsx
-*.csv
+docs/assets/Feuil1.csv
 *.gri
 *.grd
 *.vrt
