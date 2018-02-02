@@ -22,7 +22,7 @@ mapview(alex)
 
 ## @knitr get_data
 coord <- coordinates(alex)
-# altCAN <- raster::getData(name="SRTM", lon = coord[1,1], lat = coord[1,2], path="assets/")
+altCAN2 <- raster::getData(name="SRTM", lon = coord[1,1], lat = coord[1,2], path="assets/")
 altCAN <- raster::getData(name="alt", country = "CAN", path="assets/")
 bouCAN2 <- raster::getData(country='CAN', level=2, path="assets/")
 bouCAN2_Q <- bouCAN2[bouCAN2@data$NAME_1 == "Québec",]
@@ -85,21 +85,25 @@ plot(alex, add = TRUE, pch=20, col="grey20")
 
 
 plot(ra_elv2, add=T)
+plot(ra_elv, add=T)
+
+plot(alex, add = TRUE, pch=20, col="grey20")
 
 
 ## @knitr new_data
 alex@data$totalC <- runif(nrow(alex@data), 5, 50)
 alex@data$categ <- rep(1:3, 10)
 alex@data$elv2 <- extract(ra_elv, alex)
+alex@data$elv3 <- extract(ra_elv2, alex)
 head(alex@data)
 # @knitr end_new_data
 
-# alex@data$elv3 <- extract(ra_elv2, alex)
 
+# alex@data$elv3 <- extract(ra_elv2, alex)
 
 ## @knitr plot_6
 par(las=1)
-palette(c('#cb58c2', '#38e2d2', '#dadd65'))
+palette(c('#c17abb', '#38e2d2', '#dadd65'))
 plot(t(alex@bbox), type = 'n')
 plot(alex, add=T, cex = log(alex@data$totalC), pch = 19, col = alex@data$categ)
 ## @knitr end_plot_6
