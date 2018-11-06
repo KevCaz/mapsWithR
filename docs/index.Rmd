@@ -441,6 +441,7 @@ install.views("Spatial")
 
 - [Document par Nicolas Casajus](https://qcbs.ca/wiki/_media/gisonr.pdf)
 - http://r-spatial.org/
+- http://www.rspatial.org/
 - [Tutorial on datacamp](https://www.datacamp.com/courses/spatial-analysis-in-r-with-sf-and-raster)
 
 ## Useful links to get data

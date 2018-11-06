@@ -1,8 +1,5 @@
-ALL: mapsR.pdf
-
-mapsR.pdf: mapsR.Rmd
+getdoc:
 	Rscript --no-init-file -e "rmarkdown::render('mapsR.Rmd', 'all')"
-
 
 pres:
 	cd docs; \

@@ -37,7 +37,7 @@ header-includes:
     - \fancyfoot[LE,RO]{\thepage}
 ---
 
-<!--  
+<!--
 render("path/mapsR.Rmd", "all")
 -->
 
@@ -302,7 +302,7 @@ I plot **ptspd** and I specify that the size of points depends on the second var
 plot(ptspd, pch=1, cex=ptspd@data$Var2)
 ```
 
-Among the advantage of these spatial classes, there is the easiness of the definition of proper subsets. For instance, you can create a new *SpatialPointsDataFrame* with points 1,2,4,5,7,8 of the previous as follows:  
+Among the advantage of these spatial classes, there is the easiness of the definition of proper subsets. For instance, you can create a new *SpatialPointsDataFrame* with points 1,2,4,5,7,8 of the previous as follows:
 
 ```{r}
 ptspd2 <-ptspd[c(1,2,4,5,7,8),]
@@ -466,7 +466,7 @@ The first example I choose is creating a *RasterLayer* from a matrix (others are
 ```{r}
 Ra1 <- raster(matrix(runif(360*180,0,10),ncol=360,nrow=180),
     crs=CRS("+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0"),
-    xmn=-179.5, xmx=+179.5, ymn=-79.5, y## Example:`raster`mx=+79.5)
+    xmn=-179.5, xmx=+179.5, ymn=-79.5) ## Example:`raster`mx=+79.5)
 Ra1
 ```
 
@@ -675,7 +675,7 @@ KML(Ra5,"./outputs/rast4.kml", overwrite=TRUE)
 
 ## Import your spatial objects.
 
-This is the reverse operation: turning spatial files into R spatial objects. There three main functions: **readOGR** and **readGDAL** of package "rgdal" and **raster** for package "raster". For the sake of illustration, I willfully import objects I previously exported. First, I use **readOGR** to import the shape file "mypolygons". As it is a "ESRI shapelfile", argument "dsn" must be a path of a folder and argument layer must be name before the file extension within the folder (similar for the four "ESRI shapelfile" is made of).  
+This is the reverse operation: turning spatial files into R spatial objects. There three main functions: **readOGR** and **readGDAL** of package "rgdal" and **raster** for package "raster". For the sake of illustration, I willfully import objects I previously exported. First, I use **readOGR** to import the shape file "mypolygons". As it is a "ESRI shapelfile", argument "dsn" must be a path of a folder and argument layer must be name before the file extension within the folder (similar for the four "ESRI shapelfile" is made of).
 
 ```{r}
 mypol <- readOGR(dsn="outputs/", layer="mypolygons")
@@ -972,7 +972,7 @@ text(coordinates(mapBEL2), labels=seq(1,length(mapBEL1)), col=2)
 ```
 
 ```{r}
-slc <- c(8,11,12)
+slc <- c(8, 10, 11)
 mapBELts <- mapBEL2[slc,]
 class(mapBELts)
 mapBELS <- gUnionCascaded(mapBELts)
@@ -1026,21 +1026,8 @@ plot(mapBELS, add=T, col=2)
 
 ## Overlays
 
-One very useful tool is the **over()** function which provides a consistent spatial overlay. For instance, here, I have defined points and one grid, in order to get the identities of cells  my points belong to, I can use the **over** function.  
+One very useful tool is the **over()** function which provides a consistent spatial overlay. For instance, here, I have defined points and one grid, in order to get the identities of cells  my points belong to, I can use the **over** function.
 
 ```{r}
 over(ptspd,grdsp) # or ptspd%over%grdsp
 ```
-
-
-
-# Basic Rasters Manipulation
-
-## Crop and mask
-
-<!-- ```{r}
-plot(rasterize(mapBEL0, altBEL, mask=TRUE))
-``` -->
-
-
-## Resample
