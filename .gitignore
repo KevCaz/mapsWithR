@@ -5,9 +5,11 @@ docs/assets/Feuil1.csv
 *.gri
 *.grd
 *.vrt
-docs/assets/GADM*
+docs/assets/*.rds
+srtm*
 *.pdf
 outputs
+data
 mapsR_files
 
 # History files

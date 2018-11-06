@@ -13,6 +13,23 @@ output:
 ---
 
 
+# In a nutshell
+
+## Packages
+
+- [`sf`](https://cran.r-project.org/web/packages/sf/index.html) vector files
+- [`raster`](https://cran.r-project.org/web/packages/raster/index.html) raster
+- [`mapview`](https://cran.r-project.org/web/packages/mapview/index.html) visualize
+
+## Resources
+
+- https://insileco.github.io/tuto/rinspace/rinspace_homepage/
+- https://geocompr.robinlovelace.net/
+- http://rspatial.org/intr/index.html
+- https://www.r-spatial.org/
+- http://geojson.io/#map=2/20.0/0.0
+- https://freegisdata.rtwilson.com/
+
 
 
 # Why?
@@ -56,11 +73,11 @@ output:
 
 ## Efficiency
 
-1. well-defined classes  
-2. many formats (+ convert different file)  
-3. operations on geometries  
-4. statistical analyses  
-5. visualization  
+1. well-defined classes
+2. many formats (+ convert different file)
+3. operations on geometries
+4. statistical analyses
+5. visualization
 
 
 ## Interface

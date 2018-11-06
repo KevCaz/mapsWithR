@@ -2,22 +2,24 @@
 
 Originally, I created this repository to gather material about the creation
 and edition of maps with R. Well, things have dramatically changed recently,
-[sf](https://github.com/r-spatial/sf) has become the new standard for vector
-files and so the document is a bit outdated (there is still some relevant
+for instance [sf](https://github.com/r-spatial/sf) has become the new standard
+for vector files and is not included in the document, the current document is
+therefore a bit outdated (there is still some relevant
 material though).
 
-Now, I use this repository to edit a short & sweet tutorial about how
-to turn R as a GIS and listing valuable resources:
+Now, I use this repository to update a short & sweet tutorial about how
+to turn R into a powerful GIS (see `docs/`) and list valuable resources, *e.g.*:
 
-- I participated to the creation of this online tutorial: https://insileco.github.io/tuto/rinspace/rinspace_homepage/
+- I contributed to the creation of this online tutorial: https://insileco.github.io/tuto/rinspace/rinspace_homepage/
 - https://geocompr.robinlovelace.net/
 - http://rspatial.org/intr/index.html
 - https://freegisdata.rtwilson.com/
 
 
-## How to obtain the practical guide from the Rmd file
 
-Use the R code below
+## How to obtain the practical guide from the .rmd file
+
+Use the R code below:
 
 ```R
 install.packages("rmarkdown")
@@ -29,7 +31,7 @@ rmarkdown::render("pathto/MapswithR/mapsR.Rmd", "html_document")
 rmarkdown::render("pathto/MapswithR/mapsR.Rmd", "all")
 ```
 
-or the makefile
+or the makefile:
 
 ```sh
 make

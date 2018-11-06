@@ -22,7 +22,7 @@ mapview(alex)
 
 ## @knitr get_data
 coord <- coordinates(alex)
-altCAN2 <- raster::getData(name="SRTM", lon = coord[1,1], lat = coord[1,2], path="assets/")
+# altCAN2 <- raster::getData(name="SRTM", lon = coord[1,1], lat = coord[1,2], path="assets/")
 altCAN <- raster::getData(name="alt", country = "CAN", path="assets/")
 bouCAN2 <- raster::getData(country='CAN', level=2, path="assets/")
 bouCAN2_Q <- bouCAN2[bouCAN2@data$NAME_1 == "Québec",]
@@ -63,14 +63,10 @@ contour(ra_elv, add=T)
 ## @knitr end_plot_4
 
 
-altCAN2 <- raster('assets/srtm_22_03.tif')
-ra_elv2 <- rasterize(bouCAN2_Q[id,], crop(altCAN2, bouCAN2_Q[id,]@bbox), mask=TRUE)
-plot(ra_elv2)
-
-plot(bouCAN2_Q[id,])
-plot(alex, add = T)
-
-plot(bouCAN2[bouCAN2@data$NAME_1 == "Québec",])
+# plot(ra_elv2)
+# plot(bouCAN2_Q[id,])
+# plot(alex, add = T)
+# plot(bouCAN2[bouCAN2@data$NAME_1 == "Québec",])
 
 
 ## @knitr buffer
@@ -83,14 +79,15 @@ plot(buf, col ="grey50")
 plot(alex, add = TRUE, pch=20, col="grey20")
 ## @knitr end_plot_5
 
-
-plot(ra_elv2, add=T)
-plot(ra_elv, add=T)
-
-plot(alex, add = TRUE, pch=20, col="grey20")
+#
+# plot(ra_elv2, add=T)
+# plot(ra_elv, add=T)
+# plot(alex, add = TRUE, pch=20, col="grey20")
 
 
 ## @knitr new_data
+altCAN2 <- raster('assets/srtm_22_03.tif')
+ra_elv2 <- rasterize(bouCAN2_Q[id,], crop(altCAN2, bouCAN2_Q[id,]@bbox), mask = TRUE)
 alex@data$totalC <- runif(nrow(alex@data), 5, 50)
 alex@data$categ <- rep(1:3, 10)
 alex@data$elv2 <- extract(ra_elv, alex)
