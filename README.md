@@ -41,6 +41,7 @@ Last compilation of the document on November 6th, 2018, `sessionInfo()` is
 provided below.
 
 <details>
+
 ```R
 R> sessionInfo()
 R version 3.5.1 (2018-07-02)
@@ -69,4 +70,5 @@ loaded via a namespace (and not attached):
 
  [9] backports_1.1.2  evaluate_0.12    tools_3.5.1      compiler_3.5.1   memoise_1.1.0    htmltools_0.3.6
 ```
+
 </details>

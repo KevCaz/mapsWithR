@@ -1,7 +1,7 @@
 #### Packages ####
-# read manipulate vector files tidyverse friendly
+# read manipulate vector files + tidyverse friendly
 # intriduce sf sfg and sfc objects
-library(sf) # functions starts with st_*
+library(sf) # functions start with st_*
 # read + manipulate raster files
 library(raster)
 # Visualize in a web browser
@@ -9,6 +9,8 @@ library(mapview)
 # we already have a couple of nice tuto about it!
 library(tidyverse)
 
+## Create a folder 'data'
+dir.create("data")
 
 #### First vector file ####
 ## in raster => function getData()
@@ -38,7 +40,7 @@ ggplot(ont) +
 # Open data ontario & federal
 # https://www.ontario.ca/search/data-catalogue
 # https://www.ontario.ca/data/farmers-markets
-# http://www.agr.gc.ca/atlas/data_donnees/lcv/aafcLand_Use/tif/
+# land use data http://www.agr.gc.ca/atlas/data_donnees/lcv/aafcLand_Use/tif/
 farmkt <- st_read("data/farmersmarkets/farmersmarkets.shp")
 mapview(farmkt)
 # another example https://www.ontario.ca/data/provincially-licensed-meat-plants
